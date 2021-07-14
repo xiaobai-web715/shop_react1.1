@@ -1,0 +1,19 @@
+main{
+  min-height : 80vh;
+  /* vh是页面的一个高度变量 */
+}
+
+.zidingyi{
+  float : right;
+}
+
+/* 这里的h3是Product.js里面的<Card.Text as='h3'>,这个好像是这个组件的写法 */
+h3{
+  padding : 1px 0;
+}
+
+
+/* 这个就是Rating组件里面的，这个是自定义的classname是rating */
+.rating span{
+  margin : 2px;
+}
