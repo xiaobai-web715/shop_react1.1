@@ -1,7 +1,11 @@
 // require语法是node.js里面提供的规范性语法,通过require来引入文件
 //并且在导出文档的时候是通过module.exports =  products;语法来导出
-const express = require('express')
-const products = require('./data/poducts')
+import express  from 'express'
+import dotenv from 'dotenv'
+import products from './data/poducts.js'
+//这样的都不是文件,而是安装的
+// 调用config()进行设置(此时就可以使用.env文件里面的常量)
+dotenv.config()
 
 const app = express()
 
@@ -26,11 +30,13 @@ app.get('/api/products/:id' , (req ,res) => {
     // req.params.id,这是通过路由拿到传进的数据(也就是前面写的:id)
     const product = products.find((product) => product._id === req.params.id)
     //这个打印会在服务器请求这个的时候，在下面终端上打印,req.params.id是string数据
-    console.log(typeof(req.params.id) , req.params.id)
+    // console.log(typeof(req.params.id) , req.params.id)
     res.json(product)
 })
 
+const PORT = process.env.PORT || 5000
+
 // app.listen实现服务器的搭建
-app.listen(5000 , console.log('服务器已经在5000端口号运行...'))
+app.listen(PORT , console.log(`服务器在${process.env.NODE_ENV}模型下${PORT}号运行`))
 //接下来可以测试是不是成功运行了(node backend/server,这个文件的路径)
 //不过我在package.json里面修改了运行命令，直接npm start就可以

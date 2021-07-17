@@ -75,4 +75,4 @@ const products = [
 
 
 //这里是node里面导出数据的方式,对应的还有其导入数据require方式
-module.exports =  products;
+export default products;
