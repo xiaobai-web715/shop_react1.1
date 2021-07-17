@@ -1,5 +1,6 @@
 import React from 'react'
 import {Card} from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import Rating from './Rating'
 
 
@@ -11,15 +12,15 @@ const Product = ({product}) => {
             {/* 跳转的路由如何来设置 ,要注意路由可不是引号，而是波浪线符号那里 */}
             {/* 要跳转到指定商品的详情页，都需要获取产品id来作为路由参数,也就是${props.product._id} */}
             {/* 因此href要动态输出一个路径 */}
-            <a href={`/products/${product._id}`}>
+            <Link to={`/products/${product._id}`}>
                 {/* 图片，能实现点击通过路由跳转 */}
                 <Card.Img src={product.image} variant = 'top'></Card.Img> 
-            </a>
+            </Link>
             <Card.Body>
                 {/* 标题，也能实现点击通过路由进行跳转 */}
-                <a href={`/products/${product._id}`}>
+                <Link to={`/products/${product._id}`}>
                     <Card.Title>{product.name}</Card.Title>
-                </a>
+                </Link>
                 {/* 这里设置的是评分（要创建组件来实现），第三讲的内容 */}
                 <Card.Text as='div'>
                     <div className='my-3'>

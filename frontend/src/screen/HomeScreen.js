@@ -1,15 +1,38 @@
-import React from 'react'
+import React , {useState , useEffect} from 'react'
 import {Row , Col} from 'react-bootstrap'
-import products from '../poducts'
+// import products from '../poducts'
 import Product from '../components/Product'
-import { useState , useEffect } from 'react'
+import axios from 'axios'
+
+//这里就涉及到我通过请求拿到了相应的产品数据存储在哪里，这里就用到了Hook(useState ， useEffect)
+//使用useState状态可以保存从后台里面拿到的数据
 const HomeScreen = () => {
-    const [product, setProduct] = useState(products)
+    const [products , setProducts] = useState([])
+    // 这里给products设置默认值是空数组,因为产品数据都是保存在数组里面的
+    // const [product, setProduct] = useState(products)
+    // useEffect(() => {
+    //     return () => {
+    //         // console.log(product)
+    //     }
+    // }, [product])
+
     useEffect(() => {
-        return () => {
-            // console.log(product)
+        // console.log('hello')
+        // axios.get()来获取后台返回的数据,axios在进行请求的时候我们需要设置一个异步函数
+        //所以应该标记整个函数为async(这里要注意，不能直接将useEffect里面的箭头函数设置为asunc，这样的标记方式是错误的，应该在里面新建一个函数来实现异步)
+        const fetchProducts = async () => {
+        //   const res  = await axios.get('/api/products')  
+          const {data}  = await axios.get('/api/products') 
+        //   '/api/products'对应的就是后台服务器里面设置的路由
+        // console.log(res)这里可以打印出返回的数据，里面有的是我们不需要的,可以自己打印查看一下
+        //数据是在保存在对象的data里面,我们这里直接解构出来（目前还不清楚是不是只有对象形式的数据可以这样来解构）
+           setProducts(data) 
         }
-    }, [product])
+        // axios.get()（因为axios.get()应该是一个异步的，所以写成上面的样式，另起一个函数）  
+        fetchProducts()//这里去调用这个函数才能去执行
+
+        //编写到这里要注意一件事,就是前台与后台服务器的端口是不同的，一个是3000，一个是5000，所以这里要去前端部分的package.json里面添加一个代理端口"proxy" : "http://127.0.0.1:5000",然后前后台服务器都重新运行一下
+    },[])
 // 自己添加测试的hook方法
     return (
         <>
